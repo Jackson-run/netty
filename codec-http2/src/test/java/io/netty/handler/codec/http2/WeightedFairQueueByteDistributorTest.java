@@ -18,6 +18,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockitoAnnotations;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.mockito.verification.VerificationMode;
 
 import static io.netty.handler.codec.http2.Http2CodecUtil.DEFAULT_PRIORITY_WEIGHT;
@@ -929,6 +931,7 @@ public class WeightedFairQueueByteDistributorTest extends AbstractWeightedFairQu
     private int captureWrites(Http2Stream stream) {
         ArgumentCaptor<Integer> captor = ArgumentCaptor.forClass(Integer.class);
         verify(writer, atLeastOnce()).write(same(stream), captor.capture());
+        System.err.println(captor.getAllValues().size());
         int total = 0;
         for (Integer x : captor.getAllValues()) {
             total += x;

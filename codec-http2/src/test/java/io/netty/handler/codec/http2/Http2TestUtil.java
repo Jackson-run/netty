@@ -464,6 +464,7 @@ public final class Http2TestUtil {
                     @Override
                     public void operationComplete(ChannelFuture future) throws Exception {
                         if (!future.isSuccess()) {
+                            future.cause().printStackTrace();
                             channel().pipeline().fireExceptionCaught(future.cause());
                         }
                     }
